@@ -1,1 +1,4 @@
-{hardware = import ./nixos/hardware.nix;}
+{
+  hardware = import ./nixos/hardware.nix;
+  system = import ./nixos/system.nix;
+}
