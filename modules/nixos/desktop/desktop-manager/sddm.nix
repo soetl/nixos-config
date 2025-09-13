@@ -8,6 +8,7 @@ in
   with lib; {
     options.nixosModules.desktop.desktopManager.sddm = {
       enable = mkEnableOption "SDDM";
+
       theme = {
         enable = mkEnableOption "SDDM Theme";
 
@@ -43,5 +44,7 @@ in
         enableHidpi = true;
         theme = mkIf cfg.theme.enable cfg.theme.path;
       };
+
+      security.pam.services.sddm.enableGnomeKeyring = config.nixosModules.desktop.keyring.gnome.enable;
     };
   }
