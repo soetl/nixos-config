@@ -21,15 +21,16 @@
   outputs = {
     self,
     nixpkgs,
+    home-manager,
     ...
   } @ inputs:
     with nixpkgs.lib; let
       inherit (self) outputs;
 
-      args = [inputs outputs];
       system = "x86_64-linux";
       vars = import ./vars.nix;
-      sharedModules = [{nixpgs.config.allowUnfree = lib.mkDefault true;}];
+      specialArgs = {inherit inputs outputs vars;};
+      sharedModules = [{nixpkgs.config.allowUnfree = mkDefault true;}];
 
       forAllSystems = fn: genAttrs platforms.linux (system: fn nixpkgs.legacyPackages.${system});
     in {
@@ -39,16 +40,15 @@
 
       nixosConfigurations = {
         desktop = nixosSystem {
-          inherit system;
-          specialArgs = args;
+          inherit system specialArgs;
           modules = [./hosts/desktop.nix] ++ sharedModules;
         };
       };
 
       homeConfigurations = {
-        "${vars.user.name}@${vars.hostname}" = homeManagerConfiguration {
+        "${vars.user.name}@${vars.hostname}" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
-          extraSpecialArgs = args;
+          extraSpecialArgs = specialArgs;
           modules = [./homes/desktop.nix] ++ sharedModules;
         };
       };
