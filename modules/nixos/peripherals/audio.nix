@@ -32,18 +32,18 @@ in
         };
       };
 
-      pulseaudio = {
+      pulse = {
         enable = mkOption {
           type = types.bool;
           default = true;
-          description = "Install PulseAudio";
+          description = "Enable PulseAudio compatibility";
         };
       };
     };
 
     config = mkIf cfg.enable {
       environment.systemPackages = with pkgs;
-        mkIf cfg.pulseaudio.enable [pulseaudio];
+        mkIf cfg.pulse.enable [pulseaudio];
 
       services = {
         pipewire = {
