@@ -5,14 +5,14 @@
   lib,
   ...
 }: let
-  cfg = config.nixosModules.system.secureboot;
+  cfg = config.nixosModules.system.secureBoot;
 in
   with lib; {
     imports = [
       inputs.lanzaboote.nixosModules.lanzaboote
     ];
 
-    options.nixosModules.system.secureboot.enable = mkEnableOption "Secure Boot via Lanzaboote and sbctl";
+    options.nixosModules.system.secureBoot.enable = mkEnableOption "Secure Boot via Lanzaboote and sbctl";
 
     config = mkIf cfg.enable {
       environment.systemPackages = [
