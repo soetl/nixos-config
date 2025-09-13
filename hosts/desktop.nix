@@ -45,22 +45,24 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   nix = {
-    channels.enable = false;
+    channel.enable = false;
 
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
+      substituters = ["https://hyprland.cachix.org"];
+      trusted-substituters = ["https://hyprland.cachix.org"];
+      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    };
 
     gc = {
       automatic = true;
       options = "--delete-older-than 7d";
       dates = "weekly";
     };
-
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
 
   nixosModules.hardware = {
@@ -139,4 +141,6 @@
 
   programs._1password.enable = true;
   programs._1password-gui.enable = true;
+
+  system.stateVersion = "25.11";
 }

@@ -22,9 +22,9 @@ in
       };
 
       template = mkOption {
-        type = types.nullOr types.enum [
+        type = types.nullOr (types.enum [
           "btrfs"
-        ];
+        ]);
         default = "none";
         description = "Disk template for Disko";
       };

@@ -1,3 +1,3 @@
 {device, ...}: {
-  btrfs = import ./disks/templates/btrfs.nix {inherit device;};
+  btrfs = import ./templates/btrfs.nix {inherit device;};
 }
