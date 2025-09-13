@@ -25,6 +25,8 @@
     in {
       formatter = forAllSystems (pkgs: pkgs.alejandra);
 
+      nixosModules = import ./modules/nixos.nix;
+
       nixosConfigurations = {
         desktop = nixosSystem {
           inherit system;
