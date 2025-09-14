@@ -58,7 +58,18 @@ with lib; {
     direnv.enable = true;
   };
 
-  homeManagerModules.programs.development.git.enable = true;
+  homeManagerModules.programs = {
+    browsers = {
+      chromium.enable = true;
+
+      firefox = {
+        enable = true;
+        nightly = true;
+      };
+    };
+
+    development.git.enable = true;
+  };
 
   homeManagerModules.services.audio.noiseReduction = {
     enable = true;

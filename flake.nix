@@ -2,6 +2,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    firefox = {
+      url = "github:nix-community/flake-firefox-nightly/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
