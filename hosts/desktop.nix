@@ -143,6 +143,14 @@
 
   programs._1password.enable = true;
   programs._1password-gui.enable = true;
+  environment.etc = {
+    "1password/custom_allowed_browsers" = {
+      text = ''
+        firefox-nightly-bin
+      '';
+      mode = "0755";
+    };
+  };
 
   system.stateVersion = "25.11";
 }
