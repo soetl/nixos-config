@@ -37,6 +37,7 @@
       formatter = forAllSystems (pkgs: pkgs.alejandra);
 
       nixosModules = import ./modules/nixos.nix;
+      homeManagerModules = import ./modules/home-manager.nix;
 
       nixosConfigurations = {
         desktop = nixosSystem {
