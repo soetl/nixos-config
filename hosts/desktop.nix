@@ -114,6 +114,7 @@
     initialHashedPassword = vars.user.initialHashedPassword;
     extraGroups = ifGroupExist vars.user.extraGroups;
     packages = [pkgs.home-manager];
+    shell = pkgs.fish;
   };
   users.mutableUsers = true;
 
