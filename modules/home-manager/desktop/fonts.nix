@@ -22,12 +22,10 @@ in {
       description = "Additional fonts to install";
     };
 
-    terminalFont = {
-      enable = mkOption {
-        type = types.str;
-        default = "JetBrainsMono Nerd Font";
-        description = "Terminal font";
-      };
+    terminalFont = mkOption {
+      type = types.str;
+      default = "JetBrainsMono Nerd Font";
+      description = "Terminal font";
     };
   };
 
