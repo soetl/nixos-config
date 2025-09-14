@@ -6,6 +6,7 @@
 }:
 with lib; let
   cfg = config.homeManagerModules.services.audio.noiseReduction;
+  aliases = config.homeManagerModules.shell.aliases;
 in {
   options.homeManagerModules.services.audio.noiseReduction = {
     enable = mkEnableOption "PipeWire noise reduction with RNNoise";
@@ -61,12 +62,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # Install RNNoise
     home.packages = with pkgs; [
       rnnoise-plugin
     ];
 
-    # PipeWire configuration
     xdg.configFile."pipewire/pipewire.conf.d/99-noise-reduction.conf".text = ''
       context.modules = [
         {
@@ -136,18 +135,16 @@ in {
       };
     };
 
-    # Shell aliases for managing noise reduction
-    homeManagerModules.core.shell._aliases =
-      mkIf (config.homeManagerModules.core.shell.tools.enable or false)
+    homeManagerModules.shell.aliases = mkMerge [
       {
         noise-on = "systemctl --user start pipewire-noise-reduction";
         noise-off = "systemctl --user stop pipewire-noise-reduction";
         noise-restart = "systemctl --user restart pipewire-noise-reduction";
         noise-status = "pw-cli info all | grep -i rnnoise";
         noise-logs = "journalctl --user -u pipewire-noise-reduction -f";
-      };
+      }
+    ];
 
-    # Session variables
     home.sessionVariables = {
       PIPEWIRE_NOISE_REDUCTION =
         if cfg.enable
