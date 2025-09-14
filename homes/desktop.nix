@@ -19,8 +19,6 @@ with lib; {
     shell.enableShellIntegration = true;
 
     packages = with pkgs; [
-      chromium
-
       zed-editor
       vscode
 
@@ -60,7 +58,10 @@ with lib; {
 
   homeManagerModules.programs = {
     browsers = {
-      chromium.enable = true;
+      chromium = {
+        enable = true;
+        ungoogled = true;
+      };
 
       firefox = {
         enable = true;
