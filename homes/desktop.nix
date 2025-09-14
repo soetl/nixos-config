@@ -58,10 +58,7 @@ with lib; {
 
   homeManagerModules.programs = {
     browsers = {
-      chromium = {
-        enable = true;
-        ungoogled = true;
-      };
+      chromium.enable = true;
 
       firefox = {
         enable = true;

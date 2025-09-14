@@ -1,5 +1,4 @@
 {
-  inputs,
   pkgs,
   lib,
   config,
@@ -16,10 +15,16 @@ in {
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package =
-        if cfg.ungoogled
-        then pkgs.ungoogled-chromium
-        else pkgs.chromium;
+      package = pkgs.chromium;
+      extensions = [];
+
+      commandLineArgs = [
+        "--disable-sync"
+        "--no-default-browser-check"
+        "--no-first-run"
+        "--disable-metrics"
+        "--disable-metrics-reporting"
+      ];
     };
   };
 }

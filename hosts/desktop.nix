@@ -152,5 +152,23 @@
     };
   };
 
+  environment.etc."chromium/policies/managed/clear_data_policy.json".text = builtins.toJSON {
+    ClearBrowsingDataOnExitList = [
+      "browsing_history"
+      "download_history"
+      "password_signin"
+      "autofill"
+    ];
+
+    # Disable sync functionality
+    SyncDisabled = true;
+    BrowserSignin = 0;
+
+    # Account restrictions
+    RestrictSigninToPattern = "";
+    BrowserGuestModeEnabled = false;
+    BrowserAddPersonEnabled = false;
+  };
+
   system.stateVersion = "25.11";
 }
