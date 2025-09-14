@@ -1,4 +1,5 @@
 {
+  vars,
   pkgs,
   lib,
   config,
@@ -29,34 +30,37 @@ in {
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      home.packages = mkIf cfg.credential.enable (with pkgs; [
-        git-credential-manager
-        git-crypt
-        pre-commit
-      ]);
+  config = mkMerge [
+    (mkIf
+      cfg.git.enable
+      {
+        home.packages = with pkgs;
+          [
+            git-crypt
+            pre-commit
+          ]
+          ++ optional cfg.git.credential.enable git-credential-manager;
 
-      programs.git = {
-        enable = true;
-        userName = vars.user.name;
-        userEmail = vars.user.email;
+        programs.git = {
+          enable = true;
+          userName = vars.user.name;
+          userEmail = vars.user.email;
 
-        extraConfig = {
-          init.defaultBranch = "main";
+          extraConfig = {
+            init.defaultBranch = "main";
 
-          pull.rebase = false;
-          push.autoSetupRemote = true;
+            pull.rebase = false;
+            push.autoSetupRemote = true;
 
-          credential = mkIf cfg.credential.enable ({
-              helper = "manager";
-              credentialStore = "cache";
-            }
-            // cfg.credential.entries);
+            credential = mkIf cfg.git.credential.enable ({
+                helper = "manager";
+                credentialStore = "cache";
+              }
+              // cfg.git.credential.entries);
+          };
+
+          delta.enable = true;
         };
-
-        delta.enable = true;
-      };
-    }
-  ]);
+      })
+  ];
 }
