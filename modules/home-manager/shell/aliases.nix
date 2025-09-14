@@ -1,4 +1,8 @@
-{lib, ...}:
+{
+  lib,
+  config,
+  ...
+}:
 with lib; let
   aliases = config.homeManagerModules.shell.aliases;
 in {
