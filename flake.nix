@@ -44,6 +44,10 @@
           inherit system specialArgs;
           modules = [./hosts/desktop.nix] ++ sharedModules;
         };
+        desktopInstall = nixosSystem {
+          inherit system specialArgs;
+          modules = [./hosts/desktop-install.nix];
+        };
       };
 
       homeConfigurations = {
