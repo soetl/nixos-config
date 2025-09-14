@@ -1,0 +1,21 @@
+{
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.homeManagerModules.shell.direnv;
+  fish = config.homeManagerModules.shell.fish;
+in {
+  options.homeManagerModules.shell.direnv = {
+    enable = mkEnableOption "direnv";
+  };
+
+  config = mkIf cfg.enable {
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableFishIntegration = fish.enable;
+    };
+  };
+}
