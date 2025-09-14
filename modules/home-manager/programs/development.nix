@@ -12,7 +12,11 @@ in {
       enable = mkEnableOption "Git";
 
       credential = {
-        enable = mkEnableOption "Git Credential Manager";
+        enable = mkOption {
+          type = types.bool;
+          default = true;
+          description = "Enable Git Credential Manager";
+        };
 
         entries = mkOption {
           type = types.attrsOf (types.attrsOf types.str);
