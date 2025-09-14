@@ -66,6 +66,8 @@ with lib; {
         enable = true;
         nightly = true;
       };
+
+      defaultBrowser = "firefox";
     };
 
     development.git.enable = true;
