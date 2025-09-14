@@ -6,7 +6,6 @@
 }:
 with lib; let
   cfg = config.homeManagerModules.services.audio.noiseReduction;
-  aliases = config.homeManagerModules.shell.aliases;
 in {
   options.homeManagerModules.services.audio.noiseReduction = {
     enable = mkEnableOption "PipeWire noise reduction with RNNoise";
