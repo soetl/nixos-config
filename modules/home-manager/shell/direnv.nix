@@ -5,7 +5,6 @@
 }:
 with lib; let
   cfg = config.homeManagerModules.shell.direnv;
-  fish = config.homeManagerModules.shell.fish;
 in {
   options.homeManagerModules.shell.direnv = {
     enable = mkEnableOption "direnv";
@@ -15,7 +14,6 @@ in {
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
-      enableFishIntegration = fish.enable;
     };
   };
 }
