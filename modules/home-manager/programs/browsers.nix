@@ -8,7 +8,6 @@
 with lib; let
   cfg = config.homeManagerModules.programs.browsers;
   firefoxCfg = config.homeManagerModules.programs.browsers.firefox;
-  chromiumCfg = config.homeManagerModules.programs.browsers.chromium;
 in {
   imports = [
     ./browsers/firefox.nix
@@ -53,10 +52,7 @@ in {
     # Set Chromium as default browser
     (mkIf (cfg.defaultBrowser == "chromium") {
       home.sessionVariables = {
-        BROWSER =
-          if chromiumCfg.ungoogled
-          then "${pkgs.ungoogled-chromium}/bin/chromium"
-          else "${pkgs.chromium}/bin/chromium-browser";
+        BROWSER = "${pkgs.chromium}/bin/chromium-browser";
       };
 
       xdg.mimeApps.defaultApplications = {
