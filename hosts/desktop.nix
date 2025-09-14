@@ -117,6 +117,7 @@
     shell = pkgs.fish;
   };
   users.mutableUsers = true;
+  programs.fish.enable = true;
 
   nixosModules.desktop = {
     desktopManager.sddm = {
